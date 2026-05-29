@@ -1,0 +1,4 @@
+{
+  "_comment": "Copy this to config.local.json (gitignored) to override config.json per machine. Most common use: pin the server to one network interface so it isn't exposed on Wi-Fi. Any key from config.json may be overridden.",
+  "host": "192.168.10.1"
+}

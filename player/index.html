@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Project Umbra — Ambient Display Player">
+    <title>Umbra Player</title>
+    <link rel="stylesheet" href="/player/static/css/player.css">
+</head>
+<body>
+    <!-- Fullscreen entry gate (browsers require user interaction for fullscreen) -->
+    <div id="umbra-gate">
+        <div class="gate-content">
+            <h1 class="gate-title">UMBRA</h1>
+            <p class="gate-subtitle">Tap to enter ambient mode</p>
+            <button id="btn-enter" class="gate-button">Enter</button>
+        </div>
+    </div>
+
+    <!-- Main rendering canvas -->
+    <canvas id="umbra-canvas"></canvas>
+
+    <!-- Identify overlay (briefly shows device label on IDENTIFY command) -->
+    <div id="umbra-identify" class="identify-overlay hidden">
+        <span id="identify-label"></span>
+    </div>
+
+    <!-- Connection status indicator -->
+    <div id="umbra-status" class="status-indicator">
+        <span id="status-dot" class="dot disconnected"></span>
+        <span id="status-text">Connecting…</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/shared/static/js/constants.js"></script>
+    <script src="/shared/static/js/protocol.js"></script>
+    <script src="/player/static/js/viewport.js"></script>
+    <script src="/player/static/js/clock.js"></script>
+    <script src="/player/static/js/perf.js"></script>
+    <script src="/player/static/js/connection.js"></script>
+    <script src="/player/static/js/renderer.js"></script>
+    <!-- Engine framework -->
+    <script src="/player/static/js/themes/theme-base.js"></script>
+    <script src="/player/static/js/engines/engine-base.js"></script>
+    <script src="/player/static/js/engines/noise.js"></script>
+    <script src="/player/static/js/engines/e1-point-field.js"></script>
+    <script src="/player/static/js/engines/e2-noise-field.js"></script>
+    <script src="/player/static/js/engines/e3-falling-column.js"></script>
+    <script src="/player/static/js/engines/e4-procedural-grid.js"></script>
+    <script src="/player/static/js/engines/e5-banded-field.js"></script>
+    <script src="/player/static/js/engines/e6-edge-mask.js"></script>
+    <script src="/player/static/js/themes/registry.js"></script>
+    <script src="/player/static/js/player.js"></script>
+</body>
+</html>

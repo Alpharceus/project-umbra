@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Project Umbra — Control Dashboard">
+    <meta name="theme-color" content="#0a0a0c">
+    <title>Umbra Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dashboard/static/css/dashboard.css">
+</head>
+<body>
+    <div id="dashboard-app">
+        <!-- Header -->
+        <header id="dash-header">
+            <h1 class="dash-title">UMBRA</h1>
+            <div id="dash-connection" class="connection-badge disconnected">
+                <span class="conn-dot"></span>
+                <span id="conn-text">Connecting…</span>
+            </div>
+        </header>
+
+        <!-- Emergency Controls (always visible, §8.5) -->
+        <section id="emergency-controls" class="control-section">
+            <button id="btn-blackout" class="emergency-btn blackout">Blackout All</button>
+            <button id="btn-wake" class="emergency-btn wake">Wake All</button>
+        </section>
+
+        <!-- Active Theme Display -->
+        <section id="active-theme-section" class="control-section">
+            <div class="section-label">Active Theme</div>
+            <div id="active-theme-name" class="active-theme-display">—</div>
+        </section>
+
+        <!-- Brightness + Motion (§8.5: large vertical sliders with detents) -->
+        <section class="control-section sliders-row">
+            <div class="vslider-group">
+                <div class="section-label">Brightness</div>
+                <input type="range" id="slider-brightness" class="vertical-slider"
+                       min="0" max="100" value="60" orient="vertical">
+                <div class="slider-value" id="brightness-value">60%</div>
+                <div class="preset-chips">
+                    <button class="chip" data-brightness="0">Off</button>
+                    <button class="chip" data-brightness="5">Movie</button>
+                    <button class="chip" data-brightness="20">Ambient</button>
+                    <button class="chip active" data-brightness="60">Bright</button>
+                    <button class="chip" data-brightness="90">Max</button>
+                </div>
+            </div>
+            <div class="vslider-group">
+                <div class="section-label">Motion</div>
+                <input type="range" id="slider-motion" class="vertical-slider"
+                       min="0" max="100" value="50" orient="vertical">
+                <div class="slider-value" id="motion-value">50%</div>
+                <div class="preset-chips">
+                    <button class="chip" data-motion="0">Frozen</button>
+                    <button class="chip" data-motion="10">Still</button>
+                    <button class="chip" data-motion="25">Movie</button>
+                    <button class="chip active" data-motion="50">Ambient</button>
+                    <button class="chip" data-motion="100">Demo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sleep States (§7.2) -->
+        <section id="sleep-section" class="control-section">
+            <div class="section-label">Sleep State</div>
+            <div class="sleep-options">
+                <button class="sleep-btn active" data-sleep="awake">Awake</button>
+                <button class="sleep-btn" data-sleep="idle_breathing">Idle Glow</button>
+                <button class="sleep-btn" data-sleep="frozen_dark">Freeze</button>
+                <button class="sleep-btn" data-sleep="blackout">Blackout</button>
+            </div>
+        </section>
+
+        <!-- Host monitors — choose where to run the ambient view -->
+        <section id="host-monitors-section" class="control-section">
+            <div class="section-label">Host Monitors — choose where to run the screensaver</div>
+            <div id="host-monitors" class="host-monitors"></div>
+            <button id="btn-refresh-monitors" class="mini-btn">Re-detect monitors</button>
+        </section>
+
+        <!-- Display Map (§9 / display-settings style) -->
+        <section id="displays-section" class="control-section">
+            <div class="section-label">Active Screens — tap to toggle animation</div>
+            <div id="display-map" class="display-map"></div>
+            <div class="map-legend">
+                <span class="legend-item"><span class="legend-swatch on"></span>Animating</span>
+                <span class="legend-item"><span class="legend-swatch off"></span>Off (excluded)</span>
+            </div>
+        </section>
+
+        <!-- Theme Grid -->
+        <section id="theme-section" class="control-section">
+            <div class="section-label">Themes</div>
+            <div id="theme-grid" class="theme-grid"></div>
+            <div class="transition-row">
+                <span class="mini-label">Transition</span>
+                <div class="transition-chips">
+                    <button class="tchip" data-transition="2">2s</button>
+                    <button class="tchip active" data-transition="6">6s</button>
+                    <button class="tchip" data-transition="10">10s</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Presets (§13) -->
+        <section id="preset-section" class="control-section">
+            <div class="section-label">Presets</div>
+            <div id="preset-grid" class="preset-grid"></div>
+        </section>
+
+        <!-- Advanced drawer (§8.5: keep deep controls out of the main flow) -->
+        <section id="advanced-section" class="control-section">
+            <button id="advanced-toggle" class="drawer-toggle" aria-expanded="false">
+                Advanced settings <span class="chevron">▸</span>
+            </button>
+            <div id="advanced-content" class="drawer-content hidden">
+
+                <!-- Cross-screen continuity (§4.4) -->
+                <div class="adv-block">
+                    <div class="section-label">Cross-screen Continuity</div>
+                    <label class="toggle-row">
+                        <span>Treat screens as one room</span>
+                        <input type="checkbox" id="toggle-continuity">
+                        <span class="toggle-switch"></span>
+                    </label>
+                </div>
+
+                <!-- Connected devices + per-device calibration & layout -->
+                <div class="adv-block">
+                    <div class="section-label">Connected Devices</div>
+                    <div id="device-list" class="device-list"></div>
+                </div>
+
+                <!-- QR join (§3.6) -->
+                <div class="adv-block">
+                    <div class="section-label">Join a Screen</div>
+                    <div id="join-info" class="join-info">
+                        <div id="qr-holder" class="qr-holder"></div>
+                        <div class="join-urls">
+                            <div class="join-url" id="join-player-url">—</div>
+                            <div class="join-hint">Open this URL on any screen to join.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/shared/static/js/constants.js"></script>
+    <script src="/shared/static/js/protocol.js"></script>
+    <script src="/dashboard/static/js/connection.js"></script>
+    <script src="/dashboard/static/js/controls.js"></script>
+    <script src="/dashboard/static/js/dashboard.js"></script>
+</body>
+</html>

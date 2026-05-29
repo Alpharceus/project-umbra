@@ -1,0 +1,37 @@
+[
+  {
+    "id": "movie-mode",
+    "name": "Movie Mode",
+    "description": "Ultra-dark for active movie viewing",
+    "brightness": 0.05,
+    "motion_scale": 0.25,
+    "contrast_scale": 0.40,
+    "density_scale": 0.60
+  },
+  {
+    "id": "pre-movie-ambient",
+    "name": "Pre-Movie Ambient",
+    "description": "Moderate ambience before the movie starts",
+    "brightness": 0.12,
+    "motion_scale": 0.50,
+    "contrast_scale": 0.70,
+    "density_scale": 0.80
+  },
+  {
+    "id": "sleep-glow",
+    "name": "Sleep Glow",
+    "description": "Barely visible edge glow for room ambience",
+    "brightness": 0.02,
+    "motion_scale": 0.05,
+    "contrast_scale": 0.20,
+    "density_scale": 0.30
+  },
+  {
+    "id": "blackout",
+    "name": "Blackout",
+    "description": "Fade to black, stop rendering",
+    "brightness": 0.00,
+    "motion_scale": 0.00,
+    "sleep_state": "blackout"
+  }
+]
