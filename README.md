@@ -54,12 +54,9 @@ stored video.
 
 ## Quick start
 
-### Run the packaged app (Windows)
-Double-click `dist/umbra/umbra.exe`. The dashboard opens automatically; use
-**Host Monitors → Launch here** to fill a monitor, and open the printed URL on
-other devices to add them.
-
 ### Run from source
+This is the way to run a fresh clone (the prebuilt `.exe` is **not** in the repo —
+see below).
 ```bash
 python -m venv .venv
 .venv\Scripts\activate            # Windows  (source .venv/bin/activate on macOS/Linux)
@@ -73,8 +70,17 @@ Then open the printed URLs:
 - Dashboard: `http://<host-ip>:8000/dashboard`
 - Player:    `http://<host-ip>:8000/join`  (use the host's IP on other devices, not `localhost`)
 
+### Packaged app (Windows .exe)
+The standalone executable is a **build artifact**, not committed to the repo
+(`dist/` is gitignored). To get it, either build it yourself — see the executable
+build instructions in **[USER_MANUAL.md](USER_MANUAL.md)** — or download it from a
+[GitHub Release](https://github.com/Alpharceus/project-umbra/releases) if one is
+published. Once you have the `dist/umbra/` folder, double-click `umbra.exe`
+(keep `umbra.exe`, `_internal/`, and `data/` together); the dashboard opens
+automatically and you pick monitors from **Host Monitors → Launch here**.
+
 See **[USER_MANUAL.md](USER_MANUAL.md)** for full operation, networking/security,
-configuration, and the executable build instructions.
+configuration, and the build instructions.
 
 ## Project structure
 
